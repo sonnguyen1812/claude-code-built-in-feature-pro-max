@@ -12,13 +12,19 @@ export default function Hero() {
   useEffect(() => {
     if (reduced || !root.current) return;
     const ctx = gsap.context(() => {
-      gsap.from(".hero-line", {
+      const tl = gsap.timeline();
+      tl.from(".hero-line", {
         y: 60, opacity: 0, rotate: -2, duration: 0.7,
         ease: "power4.out", stagger: 0.12,
       });
-      gsap.from(".hero-shadow", {
-        x: -10, y: -10, opacity: 0, duration: 0.5, delay: 0.4, ease: "power2.out",
-      });
+      // Shadow "slam" runs on box-shadow only — a property the reveal tween
+      // never touches — so it can't fight hero-line over opacity/transform.
+      tl.fromTo(
+        ".hero-shadow",
+        { boxShadow: "0px 0px 0px 0px rgba(10,10,10,1)" },
+        { boxShadow: "10px 10px 0px 0px rgba(10,10,10,1)", duration: 0.4, ease: "power3.out" },
+        "-=0.15"
+      );
     }, root);
     return () => ctx.revert();
   }, [reduced, lang]);
