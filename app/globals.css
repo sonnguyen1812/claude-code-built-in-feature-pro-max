@@ -22,3 +22,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .feature-card { opacity: 0; }
+}

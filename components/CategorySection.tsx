@@ -24,7 +24,7 @@ export default function CategorySection({
   useEffect(() => {
     if (reduced || !root.current) return;
     const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>(".feature-card");
+      const cards = Array.from(root.current!.querySelectorAll<HTMLElement>(".feature-card"));
       gsap.set(cards, { opacity: 0, scale: 0.6, y: 60, rotate: () => gsap.utils.random(-8, 8) });
       ScrollTrigger.batch(cards, {
         start: "top 88%",
