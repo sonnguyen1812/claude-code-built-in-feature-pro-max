@@ -27,8 +27,17 @@ export default function FeatureCard({ feature }: { feature: Feature }) {
         const { rotateX, rotateY } = tiltFromPointer(e.clientX - r.left, e.clientY - r.top, r.width, r.height, 8);
         rx(rotateX); ry(rotateY);
       };
-      const onEnter = () => gsap.to(el, { scale: 1.03, boxShadow: "10px 10px 0 0 #0A0A0A", duration: 0.3, ease: "power3.out" });
-      const onLeave = () => { rx(0); ry(0); gsap.to(el, { scale: 1, boxShadow: "6px 6px 0 0 #0A0A0A", duration: 0.4, ease: "power3.out" }); };
+      const onEnter = () => {
+        el.style.willChange = "transform";
+        gsap.to(el, { scale: 1.03, boxShadow: "10px 10px 0 0 #0A0A0A", duration: 0.3, ease: "power3.out", overwrite: "auto" });
+      };
+      const onLeave = () => {
+        rx(0); ry(0);
+        gsap.to(el, {
+          scale: 1, boxShadow: "6px 6px 0 0 #0A0A0A", duration: 0.4, ease: "power3.out", overwrite: "auto",
+          onComplete: () => { el.style.willChange = ""; },
+        });
+      };
       el.addEventListener("pointermove", onMove);
       el.addEventListener("pointerenter", onEnter);
       el.addEventListener("pointerleave", onLeave);
@@ -45,7 +54,7 @@ export default function FeatureCard({ feature }: { feature: Feature }) {
     <Link
       ref={ref}
       href={`/feature/${feature.id}`}
-      className="feature-card group block border-3 border-ink bg-white p-4 shadow-brutal [transform-style:preserve-3d] [perspective:600px] will-change-transform"
+      className="feature-card group block border-3 border-ink bg-white p-4 shadow-brutal [transform-style:preserve-3d] [perspective:600px]"
     >
       <div className="flex items-center justify-between gap-2">
         <span className="font-mono font-bold">{feature.name}</span>
