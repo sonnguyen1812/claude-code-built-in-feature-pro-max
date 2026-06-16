@@ -1,4 +1,5 @@
 import type { Category, Feature } from "./types";
+import { DEEP_DIVES } from "./deepdives";
 
 export const CATEGORIES: Category[] = [
   { id: "setup", accent: "brand",
@@ -39,7 +40,7 @@ export const CATEGORIES: Category[] = [
              en: "Flags and subcommands when launching `claude` from a terminal." } },
 ];
 
-export const FEATURES: Feature[] = [
+const RAW_FEATURES: Feature[] = [
   // ---- setup ----
   { id: "add-dir", category: "setup", kind: "command", name: "/add-dir", verified: true,
     tagline: { vi: "Thêm thư mục làm việc cho phiên hiện tại", en: "Add a working directory for the current session" },
@@ -1094,3 +1095,7 @@ export const FEATURES: Feature[] = [
     usage: "claude update",
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/cli-reference" },
 ];
+
+export const FEATURES: Feature[] = RAW_FEATURES.map((f) =>
+  DEEP_DIVES[f.id] ? { ...f, deepDive: DEEP_DIVES[f.id] } : f
+);

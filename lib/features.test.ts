@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { CATEGORIES, FEATURES } from "./features";
+import { DEEP_DIVES } from "./deepdives";
 import { validateFeature } from "./types";
 
 describe("features dataset", () => {
@@ -40,5 +41,15 @@ describe("features dataset", () => {
     for (const f of FEATURES) {
       if (f.kind === "skill") expect(f.category).toBe("skills");
     }
+  });
+  it("attaches every deepDive to an existing feature", () => {
+    const ids = new Set(FEATURES.map((f) => f.id));
+    for (const id of Object.keys(DEEP_DIVES)) {
+      expect(ids.has(id), `deepDive id ${id} has no feature`).toBe(true);
+    }
+  });
+  it("features with a deepDive expose it", () => {
+    const withDive = FEATURES.filter((f) => f.deepDive);
+    expect(withDive.length).toBeGreaterThanOrEqual(15);
   });
 });
