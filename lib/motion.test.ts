@@ -4,11 +4,15 @@ import { EASE, DUR, clamp, detectOS, tiltFromPointer } from "./motion";
 describe("motion tokens", () => {
   it("exposes the mixed-feel easing set", () => {
     expect(EASE.snap).toBe("back.out(2)");
+    expect(EASE.elastic).toBe("elastic.out(1,0.5)");
     expect(EASE.smooth).toBe("power3.out");
     expect(EASE.cinematic).toBe("expo.out");
+    expect(EASE.scrub).toBe("none");
   });
   it("exposes durations", () => {
+    expect(DUR.fast).toBe(0.35);
     expect(DUR.base).toBe(0.6);
+    expect(DUR.slow).toBe(1.0);
   });
 });
 
@@ -38,7 +42,7 @@ describe("tiltFromPointer", () => {
     expect(t.rotateX).toBeCloseTo(0);
     expect(t.rotateY).toBeCloseTo(0);
   });
-  it("tilts opposite on each axis toward the pointer edge", () => {
+  it("tilts positive on both axes when pointer is at top-right corner", () => {
     const t = tiltFromPointer(100, 0, 100, 100, 8);
     expect(t.rotateY).toBeCloseTo(8);
     expect(t.rotateX).toBeCloseTo(8);
