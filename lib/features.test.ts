@@ -3,8 +3,14 @@ import { CATEGORIES, FEATURES } from "./features";
 import { validateFeature } from "./types";
 
 describe("features dataset", () => {
-  it("has at least 6 categories", () => {
-    expect(CATEGORIES.length).toBeGreaterThanOrEqual(6);
+  it("has the 9 functional categories", () => {
+    const ids = CATEGORIES.map((c) => c.id).sort();
+    expect(ids).toEqual(
+      [
+        "between-sessions", "cli", "diagnostics", "during-task",
+        "parallel", "review-ship", "setup", "skills", "workflows",
+      ].sort()
+    );
   });
   it("has unique feature ids", () => {
     const ids = FEATURES.map((f) => f.id);
