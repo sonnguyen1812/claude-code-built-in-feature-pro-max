@@ -14,12 +14,12 @@ export default function MotionHint() {
 
   useEffect(() => {
     setOS(detectOS(navigator.userAgent));
-    setDismissed(localStorage.getItem(KEY) === "1");
+    try { setDismissed(localStorage.getItem(KEY) === "1"); } catch { setDismissed(true); }
   }, []);
 
   if (!reduced || dismissed) return null;
 
-  const close = () => { localStorage.setItem(KEY, "1"); setDismissed(true); };
+  const close = () => { try { localStorage.setItem(KEY, "1"); } catch { /* storage blocked */ } setDismissed(true); };
   const steps =
     os === "windows"
       ? (lang === "vi"

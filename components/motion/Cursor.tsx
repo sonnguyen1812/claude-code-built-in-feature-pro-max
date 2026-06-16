@@ -13,7 +13,8 @@ export default function Cursor() {
     const el = dot.current;
     const x = gsap.quickTo(el, "x", { duration: 0.25, ease: "power3.out" });
     const y = gsap.quickTo(el, "y", { duration: 0.25, ease: "power3.out" });
-    const move = (e: PointerEvent) => { x(e.clientX); y(e.clientY); };
+    let shown = false;
+    const move = (e: PointerEvent) => { x(e.clientX); y(e.clientY); if (!shown) { shown = true; gsap.to(el, { opacity: 1, duration: 0.2 }); } };
     const isInteractive = (t: EventTarget | null) =>
       t instanceof Element && !!t.closest("a,button,input,[role=button]");
     let interactive = false;
@@ -25,7 +26,7 @@ export default function Cursor() {
     };
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerover", over);
-    gsap.set(el, { xPercent: -50, yPercent: -50, opacity: 1 });
+    gsap.set(el, { xPercent: -50, yPercent: -50 });
     return () => {
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerover", over);

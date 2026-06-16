@@ -18,7 +18,7 @@ export default function BackgroundFX() {
       yTo((e.clientY / window.innerHeight - 0.5) * 30);
     };
     window.addEventListener("pointermove", move);
-    return () => window.removeEventListener("pointermove", move);
+    return () => { window.removeEventListener("pointermove", move); gsap.killTweensOf(el); };
   }, [reduced]);
 
   return (

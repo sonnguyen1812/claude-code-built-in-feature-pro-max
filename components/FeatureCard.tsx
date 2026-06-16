@@ -18,6 +18,7 @@ export default function FeatureCard({ feature }: { feature: Feature }) {
 
   useEffect(() => {
     if (reduced || !ref.current) return;
+    if (!window.matchMedia("(pointer: fine)").matches) return;
     const el = ref.current;
     const ctx = gsap.context(() => {
       const rx = gsap.quickTo(el, "rotateX", { duration: 0.4, ease: "power3.out" });
