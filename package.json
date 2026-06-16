@@ -11,7 +11,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "gsap": "3.12.7",
+    "gsap": "3.13.0",
     "lenis": "1.1.18",
     "next": "15.5.19",
     "react": "19.0.0",
