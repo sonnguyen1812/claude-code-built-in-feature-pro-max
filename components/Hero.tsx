@@ -15,9 +15,10 @@ export default function Hero() {
 
   useEffect(() => {
     if (reduced || !root.current) return;
+    let splits: SplitText[] = [];
     const ctx = gsap.context(() => {
       const heads = gsap.utils.toArray<HTMLElement>(".hero-kinetic");
-      const splits = heads.map((el) => new SplitText(el, { type: "chars" }));
+      splits = heads.map((el) => new SplitText(el, { type: "chars" }));
       const chars = splits.flatMap((s) => s.chars);
 
       const tl = gsap.timeline();
@@ -35,22 +36,22 @@ export default function Hero() {
         { backgroundPosition: "250% 0", duration: 0.9, ease: "power2.inOut" },
         "-=0.2");
 
-      // Light idle loop so the hero never feels static.
       gsap.to(".hero-shadow", {
         rotate: 0.5, duration: 2.2, ease: "sine.inOut",
         yoyo: true, repeat: -1, transformOrigin: "center",
       });
-
-      return () => splits.forEach((s) => s.revert());
     }, root);
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      splits.forEach((s) => s.revert());
+    };
   }, [reduced, lang]);
 
   return (
     <div ref={root} className="mx-auto max-w-6xl px-4 py-20 md:px-8 md:py-28">
       <h1 className="text-5xl font-black leading-[0.95] md:text-7xl">
-        <span className="hero-kinetic block [perspective:600px]">CLAUDE CODE</span>
-        <span className="hero-kinetic hero-shadow hero-sweep mt-2 inline-block border-3 border-ink bg-brand bg-[linear-gradient(110deg,transparent_30%,rgba(255,255,255,0.6)_50%,transparent_70%)] bg-[length:250%_100%] px-3 shadow-brutal-lg [perspective:600px]">
+        <span className="hero-kinetic block [perspective:600px]" aria-label="CLAUDE CODE">CLAUDE CODE</span>
+        <span className="hero-kinetic hero-shadow hero-sweep mt-2 inline-block border-3 border-ink bg-brand bg-[linear-gradient(110deg,transparent_30%,rgba(255,255,255,0.6)_50%,transparent_70%)] bg-[length:250%_100%] px-3 shadow-brutal-lg [perspective:600px]" aria-label={lang === "vi" ? "TOÀN BỘ TÍNH NĂNG" : "EVERY FEATURE"}>
           {lang === "vi" ? "TOÀN BỘ TÍNH NĂNG" : "EVERY FEATURE"}
         </span>
       </h1>
