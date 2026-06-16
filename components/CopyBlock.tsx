@@ -1,8 +1,23 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { gsap } from "gsap";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 
-export default function CopyBlock({ code }: { code: string }) {
+export default function CopyBlock({ code, typewriter = false }: { code: string; typewriter?: boolean }) {
   const [copied, setCopied] = useState(false);
+  const [shown, setShown] = useState(code);
+  const reduced = useReducedMotion();
+
+  useEffect(() => {
+    if (!typewriter || reduced) { setShown(code); return; }
+    const obj = { n: 0 };
+    const tw = gsap.to(obj, {
+      n: code.length, duration: Math.min(2.2, code.length * 0.02), ease: "none",
+      onUpdate: () => setShown(code.slice(0, Math.round(obj.n))),
+    });
+    return () => { tw.kill(); };
+  }, [code, typewriter, reduced]);
+
   const copy = async () => {
     try {
       if (!navigator?.clipboard) return;
@@ -13,10 +28,11 @@ export default function CopyBlock({ code }: { code: string }) {
       // clipboard unavailable or permission denied — fail silently
     }
   };
+
   return (
     <div className="relative">
       <pre className="overflow-x-auto border-3 border-ink bg-ink px-4 py-3 font-mono text-sm text-lime">
-        <code>{code}</code>
+        <code>{shown}</code>
       </pre>
       <button
         onClick={copy}

@@ -1,13 +1,30 @@
 "use client";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { gsap } from "gsap";
 import type { Feature } from "@/lib/types";
 import { useLang } from "@/lib/i18n";
+import { useReducedMotion } from "@/lib/useReducedMotion";
+import { DUR, EASE } from "@/lib/motion";
 import CopyBlock from "./CopyBlock";
 
 export default function FeatureDetail({ feature }: { feature: Feature }) {
   const { t, lang } = useLang();
+  const root = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion();
+
+  useEffect(() => {
+    if (reduced || !root.current) return;
+    const ctx = gsap.context(() => {
+      gsap.from(root.current!.children, {
+        y: 30, opacity: 0, duration: DUR.base, ease: EASE.smooth, stagger: 0.08,
+      });
+    }, root);
+    return () => ctx.revert();
+  }, [reduced, feature.id]);
+
   return (
-    <article className="mx-auto max-w-3xl px-4 py-10 md:px-8">
+    <article ref={root} className="mx-auto max-w-3xl px-4 py-10 md:px-8">
       <Link href="/" className="brutal-btn inline-block text-sm">
         ← {lang === "vi" ? "Tất cả tính năng" : "All features"}
       </Link>
@@ -33,7 +50,7 @@ export default function FeatureDetail({ feature }: { feature: Feature }) {
       )}
 
       <h3 className="mt-8 text-lg font-black uppercase">{lang === "vi" ? "Cách dùng" : "Usage"}</h3>
-      <div className="mt-2"><CopyBlock code={feature.usage} /></div>
+      <div className="mt-2"><CopyBlock key={feature.id} code={feature.usage} typewriter /></div>
 
       {feature.example && (
         <>
