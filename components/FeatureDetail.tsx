@@ -50,7 +50,7 @@ export default function FeatureDetail({ feature }: { feature: Feature }) {
       )}
 
       <h3 className="mt-8 text-lg font-black uppercase">{lang === "vi" ? "Cách dùng" : "Usage"}</h3>
-      <div className="mt-2"><CopyBlock code={feature.usage} typewriter /></div>
+      <div className="mt-2"><CopyBlock key={feature.id} code={feature.usage} typewriter /></div>
 
       {feature.example && (
         <>

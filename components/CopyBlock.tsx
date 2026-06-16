@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
@@ -7,7 +7,6 @@ export default function CopyBlock({ code, typewriter = false }: { code: string; 
   const [copied, setCopied] = useState(false);
   const [shown, setShown] = useState(typewriter ? "" : code);
   const reduced = useReducedMotion();
-  const codeRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (!typewriter || reduced) { setShown(code); return; }
@@ -33,7 +32,7 @@ export default function CopyBlock({ code, typewriter = false }: { code: string; 
   return (
     <div className="relative">
       <pre className="overflow-x-auto border-3 border-ink bg-ink px-4 py-3 font-mono text-sm text-lime">
-        <code ref={codeRef}>{shown}</code>
+        <code>{shown}</code>
       </pre>
       <button
         onClick={copy}
