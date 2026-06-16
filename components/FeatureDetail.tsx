@@ -15,7 +15,7 @@ export default function FeatureDetail({ feature }: { feature: Feature }) {
       <div className="mt-6 flex items-center gap-3">
         <h1 className="font-mono text-3xl font-black md:text-4xl">{feature.name}</h1>
         {feature.verified && (
-          <span className="border-2 border-ink bg-lime px-2 py-1 text-xs font-bold">✓ verified</span>
+          <span className="border-2 border-ink bg-lime px-2 py-1 text-xs font-bold">{lang === "vi" ? "✓ đã xác minh" : "✓ verified"}</span>
         )}
       </div>
       <p className="mt-2 text-xl">{t(feature.tagline)}</p>

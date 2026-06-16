@@ -4,9 +4,14 @@ import { useState } from "react";
 export default function CopyBlock({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
   const copy = async () => {
-    await navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    try {
+      if (!navigator?.clipboard) return;
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      // clipboard unavailable or permission denied — fail silently
+    }
   };
   return (
     <div className="relative">
@@ -15,6 +20,7 @@ export default function CopyBlock({ code }: { code: string }) {
       </pre>
       <button
         onClick={copy}
+        aria-label={copied ? "Copied" : "Copy code"}
         className="absolute right-2 top-2 border-3 border-paper bg-brand px-2 py-1 text-xs font-bold text-ink"
       >
         {copied ? "✓" : "copy"}

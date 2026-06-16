@@ -4,7 +4,7 @@ import type { Feature } from "@/lib/types";
 import { useLang } from "@/lib/i18n";
 
 export default function FeatureCard({ feature }: { feature: Feature }) {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   return (
     <Link
       href={`/feature/${feature.id}`}
@@ -14,7 +14,7 @@ export default function FeatureCard({ feature }: { feature: Feature }) {
         <span className="font-mono font-bold">{feature.name}</span>
         {feature.verified && (
           <span className="shrink-0 border-2 border-ink bg-lime px-1 text-xs font-bold">
-            ✓ verified
+            {lang === "vi" ? "✓ đã xác minh" : "✓ verified"}
           </span>
         )}
       </div>
