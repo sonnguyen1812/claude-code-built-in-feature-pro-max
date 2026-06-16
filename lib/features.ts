@@ -33,7 +33,7 @@ export const CATEGORIES: Category[] = [
 
 export const FEATURES: Feature[] = [
   // ---- Slash Commands ----
-  { id: "help", category: "slash-commands", name: "/help", verified: false,
+  { id: "help", category: "slash-commands", name: "/help", kind: "command", verified: false,
     tagline: { vi: "Xem trợ giúp và danh sách lệnh", en: "Show help and command list" },
     whatItDoes: { vi: "Hiển thị các lệnh khả dụng và hướng dẫn nhanh.",
                   en: "Displays available commands and quick guidance." },
@@ -42,7 +42,7 @@ export const FEATURES: Feature[] = [
     usage: "/help",
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/interactive-mode" },
 
-  { id: "clear", category: "slash-commands", name: "/clear", verified: false,
+  { id: "clear", category: "slash-commands", name: "/clear", kind: "command", verified: false,
     tagline: { vi: "Xoá toàn bộ ngữ cảnh hội thoại", en: "Clear the conversation context" },
     whatItDoes: { vi: "Bắt đầu lại với ngữ cảnh trống, bỏ lịch sử hiện tại.",
                   en: "Starts fresh with empty context, dropping current history." },
@@ -51,7 +51,7 @@ export const FEATURES: Feature[] = [
     usage: "/clear",
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/interactive-mode" },
 
-  { id: "compact", category: "slash-commands", name: "/compact", verified: false,
+  { id: "compact", category: "slash-commands", name: "/compact", kind: "command", verified: false,
     tagline: { vi: "Nén hội thoại để tiết kiệm context", en: "Compact the conversation to save context" },
     whatItDoes: { vi: "Tóm tắt lịch sử thành dạng ngắn, giữ ý chính.",
                   en: "Summarizes history into a shorter form, keeping the gist." },
@@ -60,7 +60,7 @@ export const FEATURES: Feature[] = [
     usage: "/compact",
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/interactive-mode" },
 
-  { id: "init", category: "slash-commands", name: "/init", verified: false,
+  { id: "init", category: "slash-commands", name: "/init", kind: "command", verified: false,
     tagline: { vi: "Tạo file CLAUDE.md cho dự án", en: "Generate a CLAUDE.md for the project" },
     whatItDoes: { vi: "Quét codebase và sinh file hướng dẫn dự án.",
                   en: "Scans the codebase and generates a project guide file." },
@@ -69,7 +69,7 @@ export const FEATURES: Feature[] = [
     usage: "/init",
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/memory" },
 
-  { id: "model", category: "slash-commands", name: "/model", verified: false,
+  { id: "model", category: "slash-commands", name: "/model", kind: "command", verified: false,
     tagline: { vi: "Đổi model đang dùng", en: "Switch the active model" },
     whatItDoes: { vi: "Chọn model (vd Opus/Sonnet/Haiku) cho phiên.",
                   en: "Selects the model (e.g. Opus/Sonnet/Haiku) for the session." },
@@ -78,7 +78,7 @@ export const FEATURES: Feature[] = [
     usage: "/model",
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/interactive-mode" },
 
-  { id: "memory", category: "slash-commands", name: "/memory", verified: false,
+  { id: "memory", category: "slash-commands", name: "/memory", kind: "command", verified: false,
     tagline: { vi: "Sửa file bộ nhớ CLAUDE.md", en: "Edit the CLAUDE.md memory files" },
     whatItDoes: { vi: "Mở các file bộ nhớ để xem và chỉnh sửa.",
                   en: "Opens the memory files to view and edit." },
@@ -87,7 +87,7 @@ export const FEATURES: Feature[] = [
     usage: "/memory",
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/memory" },
 
-  { id: "btw", category: "slash-commands", name: "/btw", verified: true,
+  { id: "btw", category: "slash-commands", name: "/btw", kind: "command", verified: true,
     tagline: { vi: "Hỏi nhanh câu phụ, không vào lịch sử", en: "Quick side question, never enters history" },
     whatItDoes: { vi: "Trả lời chỉ từ context sẵn có; không có quyền dùng tool; không ghi vào lịch sử.",
                   en: "Answers only from existing context; no tool access; never written to history." },
@@ -97,7 +97,7 @@ export const FEATURES: Feature[] = [
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/interactive-mode" },
 
   // ---- Skills ----
-  { id: "skills-system", category: "skills", name: "Skills (SKILL.md)", verified: true,
+  { id: "skills-system", category: "skills", name: "Skills (SKILL.md)", kind: "command", verified: true,
     tagline: { vi: "Lệnh tự định nghĩa bằng SKILL.md", en: "Self-defined commands via SKILL.md" },
     whatItDoes: { vi: "Mỗi skill là thư mục chứa SKILL.md (YAML frontmatter + markdown); tên thư mục thành lệnh.",
                   en: "Each skill is a folder with SKILL.md (YAML frontmatter + markdown); the folder name becomes the command." },
@@ -107,7 +107,7 @@ export const FEATURES: Feature[] = [
     example: "---\ndescription: ...\nallowed-tools: ...\n---\n# instructions",
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/skills" },
 
-  { id: "batch", category: "skills", name: "/batch", verified: true,
+  { id: "batch", category: "skills", name: "/batch", kind: "command", verified: true,
     tagline: { vi: "Thay đổi codebase quy mô lớn song song", en: "Large-scale parallel codebase changes" },
     whatItDoes: { vi: "Phân rã thành 5–30 đơn vị; mỗi đơn vị một subagent nền trong git worktree riêng, chạy test và mở PR.",
                   en: "Decomposes into 5–30 units; one background subagent per unit in an isolated git worktree, runs tests and opens a PR." },
@@ -116,7 +116,7 @@ export const FEATURES: Feature[] = [
     usage: "/batch <mô tả thay đổi>",
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/commands" },
 
-  { id: "code-review", category: "skills", name: "/code-review", verified: true,
+  { id: "code-review", category: "skills", name: "/code-review", kind: "command", verified: true,
     tagline: { vi: "Review code nhiều mức effort", en: "Code review with effort levels" },
     whatItDoes: { vi: "Review với mức low|medium|high|xhigh|max|ultra; có --fix, --comment; 'ultra' chạy deep cloud review.",
                   en: "Reviews at low|medium|high|xhigh|max|ultra; supports --fix, --comment; 'ultra' runs a deep cloud review." },
@@ -126,7 +126,7 @@ export const FEATURES: Feature[] = [
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/commands" },
 
   // ---- Workflows ----
-  { id: "workflows-system", category: "workflows", name: "Dynamic Workflows", verified: true,
+  { id: "workflows-system", category: "workflows", name: "Dynamic Workflows", kind: "command", verified: true,
     tagline: { vi: "Script JS điều phối subagent ở quy mô lớn", en: "JS scripts orchestrating subagents at scale" },
     whatItDoes: { vi: "Runtime chạy script ở nền; tối đa 1.000 agent/run, 16 agent đồng thời; kết quả trung gian giữ trong biến script.",
                   en: "A runtime executes the script in the background; up to 1,000 agents/run, 16 concurrent; intermediate results held in script variables." },
@@ -135,7 +135,7 @@ export const FEATURES: Feature[] = [
     usage: "(bundled) /deep-research",
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/workflows" },
 
-  { id: "deep-research", category: "workflows", name: "/deep-research", verified: true,
+  { id: "deep-research", category: "workflows", name: "/deep-research", kind: "command", verified: true,
     tagline: { vi: "Nghiên cứu web đa nguồn, kiểm chứng, báo cáo có trích dẫn", en: "Multi-source web research, verified, cited report" },
     whatItDoes: { vi: "Fan-out tìm kiếm web, fetch nguồn, kiểm chứng đối kháng theo phiếu, tổng hợp báo cáo. Workflow bundled duy nhất.",
                   en: "Fans out web searches, fetches sources, adversarially vote-verifies claims, synthesizes a report. The sole bundled workflow." },
@@ -145,7 +145,7 @@ export const FEATURES: Feature[] = [
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/workflows" },
 
   // ---- Subagents & Teams ----
-  { id: "subagents", category: "agents", name: "Subagents", verified: true,
+  { id: "subagents", category: "agents", name: "Subagents", kind: "command", verified: true,
     tagline: { vi: "Instance Claude tự chủ, báo cáo về phiên chính", en: "Autonomous Claude instances reporting to the main session" },
     whatItDoes: { vi: "Chạy inline, làm việc được giao rồi trả kết quả; định nghĩa bằng Markdown + YAML ở .claude/agents/.",
                   en: "Run inline, do assigned work and report back; defined as Markdown + YAML in .claude/agents/." },
@@ -154,7 +154,7 @@ export const FEATURES: Feature[] = [
     usage: ".claude/agents/<name>.md  (project)\n~/.claude/agents/<name>.md  (user)",
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/sub-agents" },
 
-  { id: "agent-view", category: "agents", name: "Agent view", verified: true,
+  { id: "agent-view", category: "agents", name: "Agent view", kind: "command", verified: true,
     tagline: { vi: "Màn hình điều phối phiên nền (research preview)", en: "Screen to dispatch/monitor background sessions (research preview)" },
     whatItDoes: { vi: "Một màn hình để khởi chạy và giám sát các phiên chạy nền; mở bằng 'claude agents'.",
                   en: "One screen to dispatch and monitor background sessions; opened with 'claude agents'." },
@@ -163,7 +163,7 @@ export const FEATURES: Feature[] = [
     usage: "claude agents   (thêm --json để in danh sách phiên dạng JSON)",
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/agents" },
 
-  { id: "agent-teams", category: "agents", name: "Agent teams", verified: true,
+  { id: "agent-teams", category: "agents", name: "Agent teams", kind: "command", verified: true,
     tagline: { vi: "Phiên phối hợp qua task list + hộp thư (thử nghiệm)", en: "Coordinated sessions via shared task list + mailbox (experimental)" },
     whatItDoes: { vi: "Các teammate nhắn trực tiếp cho nhau; mặc định TẮT, cần bật env var.",
                   en: "Teammates message each other directly; disabled by default, needs an env var." },
@@ -173,7 +173,7 @@ export const FEATURES: Feature[] = [
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/agent-teams" },
 
   // ---- Hooks ----
-  { id: "hooks", category: "hooks", name: "Hooks", verified: false,
+  { id: "hooks", category: "hooks", name: "Hooks", kind: "command", verified: false,
     tagline: { vi: "Chạy lệnh shell theo sự kiện vòng đời", en: "Run shell commands on lifecycle events" },
     whatItDoes: { vi: "Cấu hình lệnh chạy tại các sự kiện như trước/sau khi gọi tool.",
                   en: "Configure commands to run at events such as before/after a tool call." },
@@ -183,7 +183,7 @@ export const FEATURES: Feature[] = [
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/hooks" },
 
   // ---- MCP ----
-  { id: "mcp", category: "mcp", name: "MCP servers", verified: false,
+  { id: "mcp", category: "mcp", name: "MCP servers", kind: "command", verified: false,
     tagline: { vi: "Kết nối công cụ/dữ liệu bên ngoài qua MCP", en: "Connect external tools/data via MCP" },
     whatItDoes: { vi: "Đăng ký server Model Context Protocol để Claude dùng thêm tool.",
                   en: "Register Model Context Protocol servers so Claude gains extra tools." },
@@ -193,7 +193,7 @@ export const FEATURES: Feature[] = [
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/mcp" },
 
   // ---- Configuration ----
-  { id: "claude-md", category: "config", name: "CLAUDE.md", verified: true,
+  { id: "claude-md", category: "config", name: "CLAUDE.md", kind: "command", verified: true,
     tagline: { vi: "File hướng dẫn dự án/người dùng", en: "Project/user instruction file" },
     whatItDoes: { vi: "Chèn hướng dẫn tuỳ biến ở phạm vi project hoặc user.",
                   en: "Injects custom instructions at project or user scope." },
@@ -202,7 +202,7 @@ export const FEATURES: Feature[] = [
     usage: "./CLAUDE.md  (project)   ~/.claude/CLAUDE.md  (user)",
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/memory" },
 
-  { id: "system-prompt-flags", category: "config", name: "--system-prompt flags", verified: true,
+  { id: "system-prompt-flags", category: "config", name: "--system-prompt flags", kind: "command", verified: true,
     tagline: { vi: "Tuỳ biến system prompt qua cờ CLI", en: "Customize the system prompt via CLI flags" },
     whatItDoes: { vi: "System prompt nội bộ không công bố; dùng --system-prompt(-file) để thay, --append-system-prompt(-file) để nối thêm.",
                   en: "Internal system prompt is unpublished; use --system-prompt(-file) to replace, --append-system-prompt(-file) to append." },
@@ -211,7 +211,7 @@ export const FEATURES: Feature[] = [
     usage: "claude --append-system-prompt \"...\"",
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/cli-reference" },
 
-  { id: "bare", category: "config", name: "--bare", verified: true,
+  { id: "bare", category: "config", name: "--bare", kind: "command", verified: true,
     tagline: { vi: "Chế độ tối giản, bỏ auto-discovery", en: "Minimal mode, skips auto-discovery" },
     whatItDoes: { vi: "Bỏ qua hooks, skills, plugins, MCP, auto-memory, CLAUDE.md; chỉ còn Bash + đọc/sửa file.",
                   en: "Skips hooks, skills, plugins, MCP, auto-memory, CLAUDE.md; leaves only Bash + file read/edit." },
@@ -220,7 +220,7 @@ export const FEATURES: Feature[] = [
     usage: "claude --bare",
     sourceUrl: "https://docs.anthropic.com/en/docs/claude-code/cli-reference" },
 
-  { id: "disable-slash-commands", category: "config", name: "--disable-slash-commands", verified: true,
+  { id: "disable-slash-commands", category: "config", name: "--disable-slash-commands", kind: "command", verified: true,
     tagline: { vi: "Tắt mọi skill và lệnh trong phiên", en: "Disable all skills and commands for the session" },
     whatItDoes: { vi: "Vô hiệu hoá toàn bộ skill/command cho phiên hiện tại.",
                   en: "Disables all skills/commands for the current session." },
