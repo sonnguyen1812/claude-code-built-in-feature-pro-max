@@ -21,6 +21,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="vi" className={`${sans.variable} ${mono.variable}`}>
       <body>
+        <noscript>
+          <style>{`.feature-card{opacity:1 !important}`}</style>
+        </noscript>
         <LanguageProvider>
           <BackgroundFX />
           <Cursor />

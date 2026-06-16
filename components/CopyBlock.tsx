@@ -5,7 +5,7 @@ import { useReducedMotion } from "@/lib/useReducedMotion";
 
 export default function CopyBlock({ code, typewriter = false }: { code: string; typewriter?: boolean }) {
   const [copied, setCopied] = useState(false);
-  const [shown, setShown] = useState(typewriter ? "" : code);
+  const [shown, setShown] = useState(code);
   const reduced = useReducedMotion();
 
   useEffect(() => {
