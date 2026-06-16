@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+
+body {
+  @apply bg-paper text-ink font-sans antialiased;
+}
+
+@layer components {
+  .brutal-box {
+    @apply border-3 border-ink bg-white shadow-brutal;
+  }
+  .brutal-btn {
+    @apply border-3 border-ink bg-brand px-4 py-2 font-bold shadow-brutal-sm
+           transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5
+           active:translate-x-0 active:translate-y-0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
