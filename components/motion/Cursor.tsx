@@ -16,8 +16,13 @@ export default function Cursor() {
     const move = (e: PointerEvent) => { x(e.clientX); y(e.clientY); };
     const isInteractive = (t: EventTarget | null) =>
       t instanceof Element && !!t.closest("a,button,input,[role=button]");
-    const over = (e: PointerEvent) =>
-      gsap.to(el, { scale: isInteractive(e.target) ? 2.4 : 1, backgroundColor: isInteractive(e.target) ? "#D97706" : "transparent", duration: 0.2 });
+    let interactive = false;
+    const over = (e: PointerEvent) => {
+      const hit = isInteractive(e.target);
+      if (hit === interactive) return;
+      interactive = hit;
+      gsap.to(el, { scale: hit ? 2.4 : 1, backgroundColor: hit ? "#D97706" : "transparent", duration: 0.2 });
+    };
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerover", over);
     gsap.set(el, { xPercent: -50, yPercent: -50, opacity: 1 });
