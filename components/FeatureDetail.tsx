@@ -23,6 +23,15 @@ export default function FeatureDetail({ feature }: { feature: Feature }) {
       <Section title={lang === "vi" ? "Là gì" : "What it does"}>{t(feature.whatItDoes)}</Section>
       <Section title={lang === "vi" ? "Khi nào dùng" : "When to use"}>{t(feature.whenToUse)}</Section>
 
+      {feature.deepDive && (
+        <div className="mt-8 border-3 border-ink bg-pink/30 p-4 shadow-brutal-sm">
+          <h3 className="text-lg font-black uppercase">
+            🔬 {lang === "vi" ? "Đào sâu (kiểu Feynman)" : "Deep dive (Feynman)"}
+          </h3>
+          <p className="mt-2 whitespace-pre-line leading-relaxed">{t(feature.deepDive)}</p>
+        </div>
+      )}
+
       <h3 className="mt-8 text-lg font-black uppercase">{lang === "vi" ? "Cách dùng" : "Usage"}</h3>
       <div className="mt-2"><CopyBlock code={feature.usage} /></div>
 
