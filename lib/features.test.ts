@@ -27,7 +27,18 @@ describe("features dataset", () => {
       expect(catIds.has(f.category), `feature ${f.id} -> ${f.category}`).toBe(true);
     }
   });
-  it("has at least 15 features", () => {
-    expect(FEATURES.length).toBeGreaterThanOrEqual(15);
+  it("has at least 80 features", () => {
+    expect(FEATURES.length).toBeGreaterThanOrEqual(80);
+  });
+  it("every feature has a valid kind", () => {
+    const kinds = ["command", "skill", "workflow", "flag", "subcommand"];
+    for (const f of FEATURES) {
+      expect(kinds.includes(f.kind), `feature ${f.id} kind ${f.kind}`).toBe(true);
+    }
+  });
+  it("all bundled skills are in the skills category", () => {
+    for (const f of FEATURES) {
+      if (f.kind === "skill") expect(f.category).toBe("skills");
+    }
   });
 });
