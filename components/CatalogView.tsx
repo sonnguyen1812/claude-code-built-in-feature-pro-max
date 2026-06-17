@@ -2,6 +2,7 @@
 import { useMemo, useState } from "react";
 import type { Category, Feature, FeatureKind } from "@/lib/types";
 import { useLang } from "@/lib/i18n";
+import { useDebounced } from "@/lib/useDebounced";
 import SearchFilter from "./SearchFilter";
 import CategorySection from "./CategorySection";
 
@@ -14,6 +15,7 @@ export default function CatalogView({
   const { lang } = useLang();
   const [query, setQuery] = useState("");
   const [active, setActive] = useState<Set<FeatureKind>>(new Set());
+  const debouncedQuery = useDebounced(query, 200);
 
   const toggleKind = (k: FeatureKind) =>
     setActive((prev) => {
@@ -23,7 +25,7 @@ export default function CatalogView({
     });
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = debouncedQuery.trim().toLowerCase();
     return features.filter((f) => {
       if (active.size > 0 && !active.has(f.kind)) return false;
       if (!q) return true;
@@ -33,7 +35,7 @@ export default function CatalogView({
         f.tagline.en.toLowerCase().includes(q)
       );
     });
-  }, [features, query, active]);
+  }, [features, debouncedQuery, active]);
 
   const visibleCategories = categories.filter(
     (c) => filtered.some((f) => f.category === c.id)

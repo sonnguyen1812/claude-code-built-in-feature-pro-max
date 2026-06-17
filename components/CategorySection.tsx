@@ -20,7 +20,9 @@ export default function CategorySection({
   const root = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
   const accent = { brand: "bg-brand", lime: "bg-lime", sky: "bg-sky", pink: "bg-pink" }[category.accent];
+  const idKey = features.map((f) => f.id).join(",");
 
+  // Card explosion — re-runs whenever the rendered card set changes (idKey).
   useEffect(() => {
     if (reduced || !root.current) return;
     const ctx = gsap.context(() => {
@@ -35,7 +37,15 @@ export default function CategorySection({
             stagger: { each: 0.06, grid: "auto", from: "start" },
           }),
       });
+      ScrollTrigger.refresh();
+    }, root);
+    return () => ctx.revert();
+  }, [reduced, idKey]);
 
+  // Title scrub — independent of filtering, runs once per mount.
+  useEffect(() => {
+    if (reduced || !root.current) return;
+    const ctx = gsap.context(() => {
       const title = root.current!.querySelector(".cat-title");
       if (title) {
         gsap.fromTo(title, { scale: 0.85 }, {
